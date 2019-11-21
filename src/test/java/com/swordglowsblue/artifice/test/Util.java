@@ -11,7 +11,9 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +25,7 @@ public class Util {
     }
 
     static JsonObject readFile(Path path) throws IOException {
-        return JsonHelper.deserialize(Files.readString(path));
+        return JsonHelper.deserialize(Files.lines(path).collect(Collectors.joining("\n")));
     }
 
     static JsonObject getResource(ArtificeResourcePack from, String path) throws IOException {

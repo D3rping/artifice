@@ -7,19 +7,18 @@ import com.swordglowsblue.artifice.api.builder.data.TagBuilder;
 import com.swordglowsblue.artifice.api.builder.data.recipe.*;
 import com.swordglowsblue.artifice.api.resource.ArtificeResource;
 import com.swordglowsblue.artifice.api.util.Processor;
-import com.swordglowsblue.artifice.api.virtualpack.ArtificeResourcePackContainer;
+import com.swordglowsblue.artifice.api.virtualpack.ArtificeResourcePackProfile;
 import com.swordglowsblue.artifice.impl.ArtificeResourcePackImpl;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resource.language.LanguageDefinition;
 import net.minecraft.resource.ResourcePack;
-import net.minecraft.resource.ResourcePackContainer;
-import net.minecraft.resource.ResourcePackCreator;
+import net.minecraft.resource.ResourcePackProfile;
+import net.minecraft.resource.ResourcePackProvider;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * A resource pack containing Artifice-based resources. May be used for resource generation with
@@ -40,19 +39,19 @@ public interface ArtificeResourcePack extends ResourcePack {
     void dumpResources(String folderPath) throws IOException;
 
     /**
-     * Create a client-side {@link ResourcePackContainer} for this pack.
-     * @param factory The factory function passed to {@link ResourcePackCreator#registerContainer}.
-     * @return The created container.
+     * Create a client-side {@link ResourcePackProfile} for this pack.
+     * @param factory The factory function passed to {@link ResourcePackProvider#register}.
+     * @return The created Profile.
      */
     @Environment(EnvType.CLIENT)
-    ArtificeResourcePackContainer getAssetsContainer(ResourcePackContainer.Factory<?> factory);
+    ArtificeResourcePackProfile getAssetsProfile(ResourcePackProfile.Factory<?> factory);
 
     /**
-     * Create a server-side {@link ResourcePackContainer} for this pack.
-     * @param factory The factory function passed to {@link ResourcePackCreator#registerContainer}.
-     * @return The created container.
+     * Create a server-side {@link ResourcePackProfile} for this pack.
+     * @param factory The factory function passed to {@link ResourcePackProvider#register}.
+     * @return The created Profile.
      */
-    ResourcePackContainer getDataContainer(ResourcePackContainer.Factory<?> factory);
+    ResourcePackProfile getDataProfile(ResourcePackProfile.Factory<?> factory);
 
     /**
      * Create a new client-side {@link ArtificeResourcePack} and register resources using the given callback.

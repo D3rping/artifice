@@ -26,8 +26,18 @@ public class ArtificeTestMod implements ModInitializer, ClientModInitializer {
             pack.setDisplayName("Artifice Test Data");
             pack.setDescription("Data for the Artifice test mod");
 
+            pack.addShapedRecipe(id("test"), recipe -> {
+                recipe.ingredientItem('t', new Identifier("apple"));
+                recipe.pattern("tt","tt","tt");
+                recipe.result(id("test_item"),3);
+            });
+            
             pack.add(id("recipes/test_item.json"), new StringResource("{}"));
         });
+        try {
+            dataPack.dumpResources("test/data");
+        } catch(Exception e) {}
+        
     }
 
     public void onInitializeClient() {
@@ -65,5 +75,9 @@ public class ArtificeTestMod implements ModInitializer, ClientModInitializer {
         Artifice.registerAssets(id("testmod2"), pack -> {
             pack.setOptional();
         });
+    
+        try {
+            resourcePack.dumpResources("test/resources");
+        } catch(Exception e) {}
     }
 }
